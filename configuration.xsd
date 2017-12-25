@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="selectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="selected"/>
+      <xs:enumeration value="unselected"/>
+      <xs:enumeration value="undefined"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="featureType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="selectionType" name="automatic" use="required"/>
+        <xs:attribute type="selectionType" name="manual" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="feature" type="featureType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

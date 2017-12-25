@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="featureType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="required"/>
+    <xs:attribute type="xs:boolean" name="abstract" use="optional"/>
+    <xs:attribute type="xs:boolean" name="mandatory" use="optional"/>
+    <xs:attribute type="xs:string" name="value" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="branchType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="node"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="required"/>
+    <xs:attribute type="xs:string" name="abstract" use="optional"/>
+    <xs:attribute type="xs:string" name="mandatory" use="optional"/>
+  </xs:complexType>
+
+  <xs:group name="node">
+    <xs:choice>
+      <xs:element name="feature" type="featureType"/>
+      <xs:element name="and" type="branchType"/>
+      <xs:element name="or" type="branchType"/>
+      <xs:element name="alt" type="branchType"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="binaryFormulaType">
+    <xs:choice minOccurs="2" maxOccurs="2">
+      <xs:group ref="formula"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="unaryFormulaType">
+    <xs:choice minOccurs="1" maxOccurs="1">
+      <xs:group ref="formula"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:group name="formula">
+    <xs:choice>
+      <xs:element name="conj" type="binaryFormulaType"/>
+      <xs:element name="disj" type="binaryFormulaType"/>
+      <xs:element name="not" type="unaryFormulaType"/>
+      <xs:element name="imp" type="binaryFormulaType"/>
+      <xs:element name="eq" type="binaryFormulaType"/>
+      <xs:element name="var" type="xs:string"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="featureModel">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="properties" minOccurs="0"/>
+        <xs:element name="struct">
+          <xs:complexType>
+            <xs:group ref="node"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="constraints">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="rule" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:group ref="formula"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="calculations" minOccurs="0"/>
+        <xs:element name="comments" minOccurs="0"/>
+        <xs:element name="featureOrder" minOccurs="0"/>
+      </xs:all>
+      <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
