@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>feature-schema</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="xmllint.js"></script>
+
+    <script>
+        var schemas = {};
+
+        function getSchema(type, schemaFile) {
+            if (!schemas[type])
+                return $.ajax(schemaFile).then(function(schema) {
+                    return schemas[type] = schema;
+                });
+            else
+                return $.Deferred().resolve(schemas[type]);
+        }
+
+        function validateFunc(type, schemaFile) {
+            return function() {
+                getSchema(type, schemaFile).then(function(schema) {
+                    try {
+                        var xml = $("#xml").val().trim();
+                        $("pre").text(validateXML({
+                            xml: xml,
+                            schema: schema,
+                            arguments: ["--noout", "--schema", type + ".xsd", type + ".xml"]
+                        }));
+                    } catch (e) {
+                        alert(e);
+                    }
+                });
+            };
+        }
+
+        $(function() {
+            $("#model").click(validateFunc("model",
+                "https://raw.githubusercontent.com/ekuiter/feature-schema/master/model.xsd"));
+            $("#configuration").click(validateFunc("configuration",
+                "https://raw.githubusercontent.com/ekuiter/feature-schema/master/configuration.xsd"));
+        });
+    </script>
+
+    <style>
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <textarea cols="100" rows="10" id="xml" placeholder="Model or configuration"></textarea>
+    </div>
+    <button id="model">Validate Model</button>
+    <button id="configuration">Validate Configuration</button>
+    <pre></pre>
+</body>
+
+</html>
