@@ -3,6 +3,10 @@
 feature-schema defines XML schemata for
 [FeatureIDE](https://featureide.github.io) feature models and configurations.
 
+[Click here](https://ekuiter.github.io/feature-schema) for an online
+demonstration. You can validate any FeatureIDE feature model or configuration
+there.
+
 ### Intention
 
 FeatureIDE has XML formats for feature models and configurations in its source
@@ -18,8 +22,7 @@ When parsing an XML document, point your validator to the
 **[configuration.xsd](https://raw.githubusercontent.com/ekuiter/feature-schema/master/configuration.xsd)**
 or
 **[model.xsd](https://raw.githubusercontent.com/ekuiter/feature-schema/master/model.xsd)**
-file. To try it out, use a tool [like
-this](http://www.utilities-online.info/xsdvalidation/).
+file. To try it out, [click here](https://ekuiter.github.io/feature-schema).
 
 - `configuration.xsd` is modeled after FeatureIDE's
 [XMLConfFormat](https://github.com/FeatureIDE/FeatureIDE/blob/develop/plugins/de.ovgu.featureide.fm.core/src/de/ovgu/featureide/fm/core/configuration/XMLConfFormat.java).
