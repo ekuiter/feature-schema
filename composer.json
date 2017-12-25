@@ -1,0 +1,24 @@
+{
+    "name": "ekuiter/feature-schema",
+    "description": "XML schemata for FeatureIDE feature models and configurations",
+    "keywords": [
+        "feature",
+        "feature-oriented",
+        "featureide",
+        "variant",
+        "configuration",
+        "software product line",
+        "product line"
+    ],
+    "homepage": "https://github.com/ekuiter/feature-schema",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Elias Kuiter",
+            "email": "info@elias-kuiter.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
