@@ -11,7 +11,7 @@
         "product line"
     ],
     "homepage": "https://github.com/ekuiter/feature-schema",
-    "license": "LGPL-3.0",
+    "license": "LGPL-3.0-only",
     "authors": [
         {
             "name": "Elias Kuiter",
